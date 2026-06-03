@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Zyberly | Digital Agency</title>
+    <meta name="description" content="Learn about Zyberly's mission, team and approach to digital excellence.">
+    <meta name="theme-color" content="#111111">
+    <link rel="icon" href="zyberly.png" type="image/png">
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://unpkg.com">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'SF Pro Display', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'zyberly-black': '#111111',
+                        'metallic': {
+                            100: '#e8e8e8',
+                            200: '#c0c0c0',
+                            300: '#a0a0a0',
+                            400: '#808080',
+                            500: '#505050',
+                            900: '#121212',
+                        },
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+                        'rotate-slow': 'rotateSlow 15s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { boxShadow: '0 0 15px 0 rgba(255, 255, 255, 0.2)' },
+                            '50%': { boxShadow: '0 0 30px 5px rgba(255, 255, 255, 0.4)' },
+                        },
+                        rotateSlow: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    
+    <!-- Alpine JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Alpine.js Init for cursor -->
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('globalState', () => ({
+                scrolled: false,
+                cursorPosition: { x: 0, y: 0 },
+                init() {
+                    this.checkScroll();
+                    window.addEventListener('scroll', () => this.checkScroll());
+                    document.addEventListener('mousemove', (e) => {
+                        this.cursorPosition = {
+                            x: e.clientX,
+                            y: e.clientY
+                        };
+                    });
+                },
+                checkScroll() {
+                    this.scrolled = window.pageYOffset > 60;
+                }
+            }));
+        });
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Inter', 'SF Pro Display', system-ui, sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .metallic-text {
+            background: linear-gradient(135deg, #ffffff 0%, #c0c0c0 50%, #505050 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 3px rgba(0,0,0,0.2);
+        }
+        
+        .metal-sphere {
+            background: linear-gradient(135deg, #f5f5f5 0%, #c0c0c0 40%, #505050 100%);
+            border-radius: 50%;
+            box-shadow: inset -10px -10px 30px rgba(0,0,0,0.2),
+                        inset 10px 10px 30px rgba(255,255,255,0.5),
+                        5px 5px 20px rgba(0,0,0,0.1);
+        }
+        
+        .glass-effect {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-metallic-900 to-black text-white antialiased" x-data="globalState">
+    <!-- Custom Cursor (follows mouse) -->
+    <div class="fixed w-6 h-6 rounded-full border-2 border-white mix-blend-difference pointer-events-none z-50 hidden md:block"
+         :style="`transform: translate(${cursorPosition.x - 12}px, ${cursorPosition.y - 12}px); transition: transform 0.1s ease-out;`"></div>
+         
+    <!-- Navigation Bar -->
+    <header x-data="{ mobileMenuOpen: false }" class="fixed w-full bg-black bg-opacity-60 backdrop-filter backdrop-blur-lg z-50 transition-all duration-300" 
+            :class="{ 'shadow-[0_0_15px_rgba(255,255,255,0.1)]': scrolled }">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <a href="index.html" class="flex items-center">
+                    <img src="zyberly.png" alt="Zyberly" class="h-8">
+                    <span class="text-2xl font-bold tracking-tighter metallic-text ml-3">Zyberly</span>
+                </a>
+                
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link font-medium text-white hover:text-gray-300 transition-all">Home</a>
+                    <a href="index.html#services" class="nav-link font-medium text-white hover:text-gray-300 transition-all">Services</a>
+                    <a href="index.html#process" class="nav-link font-medium text-white hover:text-gray-300 transition-all">Process</a>
+                    <a href="portfolio.html" class="nav-link font-medium text-white hover:text-gray-300 transition-all">Portfolio</a>
+                    <a href="about.html" class="nav-link font-medium text-blue-400 hover:text-blue-300 transition-all">About</a>
+                    <a href="index.html#contact" class="nav-link font-medium text-white hover:text-gray-300 transition-all">Contact</a>
+                </nav>
+                
+                <!-- Mobile Menu Button -->
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden focus:outline-none" aria-label="Toggle menu">
+                    <svg x-show="!mobileMenuOpen" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg x-show="mobileMenuOpen" class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200"
+                 x-transition:enter-start="opacity-0 -translate-y-4"
+                 x-transition:enter-end="opacity-100 translate-y-0"
+                 x-transition:leave="transition ease-in duration-150"
+                 x-transition:leave-start="opacity-100 translate-y-0"
+                 x-transition:leave-end="opacity-0 -translate-y-4"
+                 class="md:hidden py-4 space-y-4 glass-effect mt-4 rounded-lg" 
+                 style="display: none;">
+                <a href="index.html" class="block py-2 text-center font-medium text-white hover:text-gray-300">Home</a>
+                <a href="index.html#services" class="block py-2 text-center font-medium text-white hover:text-gray-300">Services</a>
+                <a href="index.html#process" class="block py-2 text-center font-medium text-white hover:text-gray-300">Process</a>
+                <a href="portfolio.html" class="block py-2 text-center font-medium text-white hover:text-gray-300">Portfolio</a>
+                <a href="about.html" class="block py-2 text-center font-medium text-blue-400 hover:text-blue-300">About</a>
+                <a href="index.html#contact" class="block py-2 text-center font-medium text-white hover:text-gray-300">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="min-h-[60vh] flex items-center justify-center bg-black relative overflow-hidden pt-24">
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <!-- Rotating elements -->
+            <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-white opacity-10 rounded-full animate-rotate-slow"></div>
+            <div class="absolute left-1/2 top-1/4 w-24 h-24 metal-sphere opacity-30 animate-float"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 py-16 md:py-24 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 metallic-text">About Zyberly</h1>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    We are a team of digital artisans crafting premium digital experiences that blend technology, design, and strategy.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-16 md:py-24 bg-gradient-to-b from-black to-metallic-900 relative">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <!-- Image side -->
+                <div class="relative">
+                    <div class="absolute -top-5 -left-5 w-64 h-64 bg-blue-500/20 rounded-full filter blur-3xl opacity-70"></div>
+                    <div class="absolute -bottom-5 -right-5 w-64 h-64 bg-purple-500/20 rounded-full filter blur-3xl opacity-70"></div>
+                    <div class="relative w-full h-[400px] glass-effect rounded-2xl overflow-hidden border border-white/10">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                             alt="Zyberly Team" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                    </div>
+                </div>
+                
+                <!-- Text side -->
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 metallic-text">Our Story</h2>
+                    <p class="text-gray-300 mb-6">
+                        Founded in 2024, Zyberly began with a simple mission: to create digital experiences that transcend the ordinary. We believe that exceptional digital solutions are the result of technical expertise, creative vision, and strategic thinking.
+                    </p>
+                    <p class="text-gray-300 mb-8">
+                        Today, we've grown into a multidisciplinary team of designers, developers, and strategists. We partner with brands and businesses to create websites, applications, and digital products that captivate audiences and drive results.
+                    </p>
+                    <div class="flex space-x-6">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+                <!-- Brand Column -->
+                <div>
+                    <a href="index.html" class="text-2xl font-bold tracking-tighter metallic-text">Zyberly</a>
+                    <p class="mt-4 text-gray-400 max-w-md">
+                        Everything your brand needs, delivered seamlessly. From design to code, hosting to photography — we do it all.
+                    </p>
+                    
+                    <!-- Social Icons -->
+                    <div class="flex space-x-5 mt-8">
+                        <a href="https://www.instagram.com/zyberly.in?igsh=OXlydWc4ZmxtY2E2" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/zyberly/" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://wa.me/918779506310" class="text-gray-400 hover:text-white transition-colors duration-300" target="_blank" rel="noopener noreferrer">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Navigation Column -->
+                <div class="grid grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Navigation</h3>
+                        <ul class="space-y-3">
+                            <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors duration-300">Home</a></li>
+                            <li><a href="index.html#services" class="text-gray-400 hover:text-white transition-colors duration-300">Services</a></li>
+                            <li><a href="portfolio.html" class="text-gray-400 hover:text-white transition-colors duration-300">Portfolio</a></li>
+                            <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors duration-300">About</a></li>
+                            <li><a href="index.html#contact" class="text-gray-400 hover:text-white transition-colors duration-300">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold mb-4">Contact</h3>
+                        <ul class="space-y-3">
+                            <li class="text-gray-400">
+                                <a href="mailto:hello@zyberly.in" class="text-gray-400 hover:text-white transition-colors">hello@zyberly.in</a>
+                            </li>
+                            <li class="text-gray-400">
+                                <a href="tel:+918779506310" class="text-gray-400 hover:text-white transition-colors">+91 8779 506310</a>
+                            </li>
+                            <li class="text-gray-400">Mumbai, Maharashtra</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500">© 2024 Zyberly. All rights reserved.</p>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300 mx-3">Privacy Policy</a>
+                    <a href="#" class="text-gray-500 hover:text-white transition-colors duration-300 mx-3">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/918779506310" class="fixed bottom-8 left-8 z-50 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300" target="_blank" rel="noopener noreferrer">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
+        </svg>
+    </a>
+
+    <script>
+        // Handle scroll detection
+        document.addEventListener('DOMContentLoaded', function() {
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 60) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
